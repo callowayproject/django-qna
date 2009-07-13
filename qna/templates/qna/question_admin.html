@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+<script type="text/javascript" src="{{ MEDIA_URL }}fckeditor/fckeditor.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+	var allPageTags = document.getElementsByTagName("textarea");
+	for (i = 0; i < allPageTags.length; i++) {
+                var oFCKeditor = new FCKeditor(allPageTags[i].id);
+                oFCKeditor.Config["CustomConfigurationsPath"] = "{{ MEDIA_URL }}fckeditor/fckconfig.js";
+                oFCKeditor.BasePath = "{{ MEDIA_URL }}fckeditor/";
+                oFCKeditor.ReplaceTextarea();
+	}
+};
+</script>
+{% endblock %}
+
+{% block content %}
+<h2>Editing {{ question }}</h2>
+<form method="post" enctype="multipart/form-data">
+    <div>
+        {{ form.title.errors }}
+        <label for="id_title">Title:</label>
+        {{ form.title }}
+    </div>
+    <div>
+        {{ form.slug.errors }}
+        <label for="id_slug">Slug:</label>
+        {{ form.slug }}
+    </div>
+    <div>
+        {{ form.question.errors }}
+        <label for="id_question">Question:</label>
+        {{ form.question }}
+    </div>
+    <div>
+        {{ form.answer.errors }}
+        <label for="id_answer">Answer:</label>
+        {{ form.answer }}
+    </div>       
+    <div>
+        {{ form.allow_comments.errors }}
+        <label for="id_allow_comments">Allow Comments?</label>
+        {{ form.allow_comments }}
+    </div>
+    <div>
+        {{ form.public.errors }}
+        <label for="id_public">Public?</label>
+        {{ form.public }}
+    </div>      
+    <input type="submit"/>
+</form>
+{% endblock %}
