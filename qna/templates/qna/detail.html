@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block extra_head %}
+
+{% load mptt_comments_tags %}
+{% mptt_comments_media %}
+
+{% endblock %}
+
+{% block content %}
+<h1>{{ question }}</h1>
+
+{{ question.question|safe }}
+
+{% if question.answer %}
+<h2>Answer</h2>
+{{ question.answer|safe }}
+{% else %}
+<p>This question has not been answered yet</p>
+{% endif %}
+
+{% if question.allow_comments %}
+{% load mptt_comments_tags %}
+    {% display_comment_toplevel_for question %}
+{% endif %}
+
+{% endblock %}
